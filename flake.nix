@@ -25,26 +25,41 @@
     nixos-cosmic,
     ...
   } @ inputs: {
-    nixosConfigurations.litolaptop = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./configuration.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
+    nixosConfigurations = {
+      litopc = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./litopc/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
 
-          home-manager.users.litoprobka = import ./home.nix;
-        }
-        kmonad.nixosModules.default
-        {
-          nix.settings = {
-            substituters = ["https://cosmic.cachix.org/"];
-            trusted-public-keys = ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
-          };
-        }
-        nixos-cosmic.nixosModules.default
-      ];
+            home-manager.users.litoprobka = import ./home.nix;
+          }
+        ];
+      };
+      litolaptop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./litolaptop/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.litoprobka = import ./home.nix;
+          }
+          kmonad.nixosModules.default
+          {
+            nix.settings = {
+              substituters = ["https://cosmic.cachix.org/"];
+              trusted-public-keys = ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
+            };
+          }
+          nixos-cosmic.nixosModules.default
+        ];
+      };
     };
   };
 }

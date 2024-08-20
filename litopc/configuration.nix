@@ -1,25 +1,23 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
+
+{ config, lib, pkgs, ... }:
+
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-  ];
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+    ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "litolaptop"; # Define your hostname.
+  networking.hostName = "litopc"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Moscow";
@@ -38,38 +36,21 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.xkb.extraLayouts.c2wru = {
-    description = "Russian (C2W2-phonetic)";
-    languages = ["rus"];
-    # yes, hardcoding like this is bad
-    # UPD: actually, I'm not sure. The nixos config is one interconnected thing, so the file
-    # is more or less guaranteed to exist there
-    symbolsFile = ../symbols/c2wru; 
+    services.xserver.xkb.extraLayouts.c2wru = {
+  	description = "Russian (C2W2-phonetic)";
+  	languages = [ "rus" ];
+  	symbolsFile = ../symbols/c2wru; # yes, hardcoding like this is bad
   };
   services.xserver.xkb.extraLayouts.km = {
     description = "English (KMonad-complement)";
-    languages = ["eng"];
-    symbolsFile = ../symbols/km; # ikik
+    languages = [ "eng" ];
+    symbolsFile = /etc/nixos/symbols/km; # ikik; why is it different and why does it work?
   };
 
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
-
-  # services.displayManager.cosmic-greeter.enable = true;
-  # services.desktopManager.cosmic.enable = true;
-
-  services.zfs.autoSnapshot.enable = true;
-
-  services.kmonad = {
-    enable = true;
-    keyboards = {
-      kmonadOutput = {
-        device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
-        config = builtins.readFile ./config.kbd;
-      };
-    };
-  };
+  
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -100,9 +81,9 @@
   # };
 
   users.users.litoprobka = {
-    isNormalUser = true;
-    extraGroups = ["wheel" "input" "uintput"];
-    packages = [];
+  	isNormalUser = true;
+  	extraGroups = [ "wheel" ];
+  	packages = [];
   };
   users.defaultUserShell = pkgs.zsh;
 
@@ -110,7 +91,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.trusted-users = ["root" "litoprobka"];
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -122,34 +103,32 @@
     alacritty
     firefox
     tldr
-    obsidian
-    gimp
   ];
   fonts.packages = with pkgs; [
-    fira-code
+  	fira-code
   ];
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
-    konsole
-    elisa
+  	konsole
+  	elisa
   ];
 
   programs.starship = {
-    enable = true;
-    settings.add_newline = true;
+  	enable = true;
+  	settings.add_newline = true;
   };
 
   programs.zsh.enable = true;
 
   environment.variables.EDITOR = "micro";
   environment.sessionVariables = {
-    LC_ALL = "en_US.UTF-8"; # a temporary fix for alacritty
-    # XDG dirs
-    XDG_CACHE_HOME = "/var/cache/litoprobka"; # I have a different sub-pool for cache files that is mounted on /var/cache; used to be "$HOME/.local/cache"
-    XDG_CONFIG_HOME = "$HOME/.config"; # todo: move it to a non-dot folder, either ~/config or ~/local/config
-    XDG_DATA_HOME = "$HOME/local/data";
-    XDG_STATE_HOME = "$HOME/local/state";
-    XDG_BIN_HOME = "$HOME/local/apps"; # not supported by the XDG specification yet
-    XDG_LIB_HOME = "$HOME/local/lib"; # again, not in XDG specification yet, but I wanna be future-proof
+  	LC_ALL = "en_US.UTF-8"; # a temporary fix for alacritty
+  	# XDG dirs
+  	XDG_CACHE_HOME = "/var/cache/litoprobka"; # I have a different sub-pool for cache files that is mounted on /var/cache; used to be "$HOME/.local/cache"
+  	XDG_CONFIG_HOME = "$HOME/.config"; # todo: move it to a non-dot folder, either ~/config or ~/local/config
+  	XDG_DATA_HOME = "$HOME/local/data";
+  	XDG_STATE_HOME = "$HOME/local/state";
+  	XDG_BIN_HOME = "$HOME/local/apps"; # not supported by the XDG specification yet
+  	XDG_LIB_HOME = "$HOME/local/lib"; # again, not in XDG specification yet, but I wanna be future-proof
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -196,4 +175,6 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.05"; # Did you read the comment?
+
 }
+

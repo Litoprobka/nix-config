@@ -74,6 +74,8 @@
 
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
+    import = ["~/.config/alacritty/themes/themes/gruvbox_dark.toml"]; # todo: add the theme to nix config
+
     cursor.style.shape = "Beam";
 
     font.size = 15.0;

@@ -108,7 +108,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  nix.settings.trusted-users = [ "root" "litoprobka" ];
+  nix.settings.trusted-users = ["root" "litoprobka"];
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     git

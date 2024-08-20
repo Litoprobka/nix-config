@@ -1,0 +1,262 @@
+(defcfg
+    input (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+    output (uinput-sink "KMonad output (~/dotter/keebstuff/kmonad/config.kbd)")
+
+    cmp-seq rctl
+
+    fallthrough true
+    allow-cmd true
+)
+
+(defsrc
+    esc     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+    grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc home
+    tab     q    w    e    r    t    y    u    i    o    p    [    ]    \    pgup
+    caps    a    s    d    f    g    h    j    k    l    scln '    ret       pgdn
+    lsft    z    x    c    v    b    n    m    ,    .    /    rsft up        end
+    lctl    lmet lalt           spc            ralt ssrq rctl lft  down rght
+)
+
+(defalias
+    ;; aliases for c2w2
+    cpy C-w
+    pst C-v
+    cut C-z
+    udo C-b
+    all C-a
+    fnd C-u
+
+    ;; hold-shift aliases
+    ;; that's a lot of boilerplate, holy moly
+    a (tap-hold 200 a S-a)
+    b (tap-hold 200 b S-b)
+    c (tap-hold 200 c S-c)
+    d (tap-hold 200 d S-d)
+    e (tap-hold 200 e S-e)
+    f (tap-hold 200 f S-f)
+    g (tap-hold 200 g S-g)
+    h (tap-hold 200 h S-h)
+    i (tap-hold 200 i S-i)
+    j (tap-hold 200 j S-j)
+    k (tap-hold 200 k S-k)
+    l (tap-hold 200 l S-l)
+    m (tap-hold 200 m S-m)
+    n (tap-hold 200 n S-n)
+    o (tap-hold 200 o S-o)
+    p (tap-hold 200 p S-p)
+    q (tap-hold 200 q S-q)
+    r (tap-hold 200 r S-r)
+    s (tap-hold 200 s S-s)
+    t (tap-hold 200 t S-t)
+    u (tap-hold 200 u S-u)
+    v (tap-hold 200 v S-v)
+    w (tap-hold 200 w S-w)
+    x (tap-hold 200 x S-x)
+    y (tap-hold 200 y S-y)
+    z (tap-hold 200 z S-z)
+    ; (tap-hold 200 ; S-;)
+    ' (tap-hold 200 ' S-')
+    , (tap-hold 200 , S-,)
+
+    ;; home row shift (currently unused)
+    sha (tap-hold-next 150 a lshift)
+    sh; (tap-hold-next 150 ; rshift)
+
+    
+    cpx (multi-tap 200 @cpy @cut)
+    cpp (multi-tap 200 @cpy @pst) ;; currently unused
+    psz (multi-tap 200 @pst @udo)
+    ctu (multi-tap 200 @cut @udo) ;; currently unused
+
+    clt C-lft
+    crt C-rght
+    cup C-up
+    cdn C-down
+
+    sh RC-grv ;; mind you, RM is compose
+    sch RC-q
+
+    ;; multi-tap arrow keys; unused since the delay is a bit annoying
+    lft (multi-tap 200 lft @clt)
+    rgt (multi-tap 200 rght @crt)
+    up (multi-tap 200 up @cup)
+    dn (multi-tap 200 down @cdn)
+
+    hm (multi-tap 200 @clt home)
+    end (multi-tap 200 @crt end)
+    
+    dw C-bspc
+    lng scrlck ;; used to be C-M-space
+    dsk A-esc ;; desktop
+
+    mlt M-lft
+    mrt M-rght
+    mup M-up
+    mdn M-down
+    
+    af4 M-f4
+    
+    psg previoussong
+    nsg nextsong
+    bk Back
+    fw Forward
+
+    bsl #(rctrl ]) ;; C2W2 backslash
+
+
+    ;; testing
+    as+ (layer-add autoshift)
+    as- (layer-rem autoshift)
+    
+    alt (tap-hold-next 200 esc ralt)
+    ext (tap-hold-next 200 ret (layer-toggle extend))
+    set (layer-toggle settings)
+    sym (layer-toggle symbols)
+)
+
+(deflayer c2w ;; use only when xkb layout is set to QWERTY or something similar
+			  ;; should work fine with QWERTY, but a layout with customised symbols is preferred
+
+    cmp     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+    grv     1    2    3    4    5    6    7    8    9    0    -    =    @lng home
+    tab     q    c    l    w    b    j    f    u    y    scln \    [    ]    pgup
+    @dw     a    s    r    t    g    p    n    e    i    o 	  '    @bsl      pgdn
+    lsft    x    m    d    v    z    k    h    ,    .    /    rsft volu      end
+    lctl    lmet @ext           spc            @alt @sym rctl @psg vold @nsg
+)
+
+(deflayer symbols ;; mirroring the Iris layout
+    _       _    _    _    _    _    _    _    _    _    _    _    _    
+    _       _    _    _    _    _    _    _    _    _    _    _    _    _    _
+    _       _    _    _    _    _    _    7    8    9    0    _    _    _    _   
+    _       _    _    _    _    _    _    4    5    6    _    _    _         _
+    _       @sch @sh _    _    _    _    1    2    3    _    _    _         _
+    _       _    _              _              _    _    _    _    _    _
+)
+
+(deflayer qwerty ;; to use when a different layout is set in xkb
+    cmp     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  ;; esc is set to cmp so I can learn the new position
+    grv     1    2    3    4    5    6    7    8    9    0    -    =    @lng home
+    tab     q    w    e    r    t    y    u    i    o    p    [    ]    \    pgup
+    @dw     a    s    d    f    g    h    j    k    l    scln '    @bsl      pgdn
+    lsft    z    x    c    v    b    n    m    ,    .    /    rsft volu      end
+    lctl    lmet @ext           spc            @alt rctl _    @psg vold @nsg
+)
+
+(deflayer autoshift
+    _       _    _    _    _    _    _    _    _    _    _    _    _    
+    _       _    _    _    _    _    _    _    _    _    _    _    _    _    _
+    _       @q   @w   @e   @r   @t   @y   @u   @i   @o   @p   _    _    _    _
+    _       @a   @s   @d   @f   @g   @h   @j   @k   @l   @;   @'   _         _   
+    _       @z   @x   @c   @v   @b   @n   @m   @,   _    _    _    _         _
+    _       _    _              _              _    _    _    _    _    _
+)
+
+(deflayer c2w2 ;; use only when xkb layout is set to QWERTY; I will switch to this once I add a russian layer that properly works with shortcuts
+    cmp     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+    grv     !    @    #    $    %    ^    =    ?    \(   \)   *    -    @lng home
+    tab     q    c    l    w    b    [    j    f    u    y    scln |    ]    pgup
+    @dw     a    s    r    t    g    -    p    n    e    i    o    @bsl      pgdn
+    lsft    x    m    d    v    z    '    k    h    ,    .    rsft volu      end
+    lctl    lmet @ext           spc            @alt rctl _    @psg vold @nsg
+)
+
+(deflayer blank
+    _       _    _    _    _    _    _    _    _    _    _    _    _    
+    _       _    _    _    _    _    _    _    _    _    _    _    _    _    _
+    _       _    _    _    _    _    _    _    _    _    _    _    _    _    _   
+    _       _    _    _    _    _    _    _    _    _    _    _    _         _
+    _       _    _    _    _    _    _    _    _    _    _    _    _         _
+    _       _    _              _              _    _    _    _    _    _
+)
+
+;; assumes qwerty
+(deflayer extend
+    @dsk    _    _    _    _    _    _    _    _    _    _    _    _    
+    _       f1   f2   f3   f4   f5   f6   f7   f8   f9  f10   f11  f12  caps _
+    @set    _    _    C-x C-z   _    _    home up   end  _    _    _    @set _   
+    bspc    bspc C-s  C-c C-v   _    pgup @clt down @crt bspc _    _         _
+    _       @udo lsft lctl _    _    pgdn lft  _    rght  _   _    @mup      _
+    _       _    _              tab            _    _     _   @mlt @mdn @mrt
+)
+
+(deflayer settings
+    _       _    _    _    _    _    _    _    _    _    _    _    _    
+    _       _    _    _    _    _    _    _    _    _    _    _    _    _    _
+    _       _    @as+ _    _    _    _    _    _    _    _    _    _    _    _   
+    _       _    @as- _    _    _    _    _    _    _    _    _    _         _
+    _       _    _    _    _    _    _    _    _    _    _    _    brup      _
+    _       _    _              _              _    _    _    _    brdn _
+)
+
+
+
+
+#| stevep's extend
+(deflayer extend
+  _        play rewind previoussong nextsong ejectcd refresh brdn brup www mail prog1 prog2
+  _        f1   f2   f3   f4   f5   f6   f7   f8   f9  f10   f11  f12  ret
+  _        esc  @bk  @fnd @fw  ins  pgup home up   end  menu prnt asck _
+  _        @all tab  lsft lctl lalt pgdn lft  down rght del  caps _
+  _          @cut @cpy @pst @pst @udo pgdn bks  f13  f14  comp _
+  _        _    _              ret            _    _    _    _
+)
+|#
+
+
+
+#| all keycodes
+    KeyEnter,        "ret", "return", "ent"
+  KeyMinus,          "min", "-"
+  KeyEqual,          "eql", "="
+  KeySleep,          "zzz"
+  KeySpace,          "spc"
+  KeyPageUp,         "pgup"
+  KeyPageDown,       "pgdn"
+  KeyInsert,         "ins"
+  KeyDelete,         "del"
+  KeyVolumeUp,       "volu"
+  KeyVolumeDown,     "voldwn", "vold"
+  KeyBrightnessUp,   "brup", "bru"
+  KeyBrightnessDown, "brdown", "brdwn", "brdn"
+  KeyLeftAlt,        "lalt", "alt"
+  KeyRightAlt,       "ralt"
+  KeyCompose,        "comp", "cmps", "cmp"
+  KeyLeftShift,      "lshift", "lshft", "lsft", "shft", "sft"
+  KeyRightShift,     "rshift", "rshft", "rsft"
+  KeyLeftCtrl,       "lctrl", "lctl", "ctl"
+  KeyRightCtrl,      "rctrl", "rctl"
+  KeyLeftMeta,       "lmeta", "lmet", "met"
+  KeyRightMeta,      "rmeta", "rmet"
+  KeyBackspace,      "bks", "bspc"
+  KeyCapsLock,       "caps"
+  Key102nd,          "102d", "lsgt", "nubs"
+  KeyForward,        "fwd"
+  KeyScrollLock,     "scrlck", "asck"
+  KeyPrint,          "prnt"
+  KeyWakeUp,         "wkup"
+  KeyLeft,           "lft"
+  KeyRight,          "rght"
+  KeyLeftBrace,      "lbrc", "["
+  KeyRightBrace,     "rbrc", "]"
+  KeySemicolon,      "scln", ";"
+  KeyApostrophe,     "apos", "'"
+  KeyGrave,          "grv", "`"
+  KeyBackasash,      "bkas", "\"
+  KeyComma,          "comm", ","
+  KeyDot,            "."
+  KeySlash,          "/"
+  KeyNumLock,        "nlck"
+  KeyKpSlash,        "kp/"
+  KeyKpEnter,        "kprt"
+  KeyKpPlus,         "kp+"
+  KeyKpAsterisk,     "kp*"
+  KeyKpMinus,        "kp-"
+  KeyKpDot,          "kp."
+  KeySysRq,          "ssrq", "sys"
+  KeyKbdIllumDown,   "bldn"
+  KeyKbdIllumUp,     "blup"
+  KeyNextSong,       "next"
+  KeyPlayPause,      "pp"
+  KeyPreviousSong,   "prev"
+|#

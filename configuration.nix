@@ -1,22 +1,17 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
+# this part of the configuration is shared between different NixOS installs
+# hardware-configuration.nix should be imported by per-system config
 {
   config,
   lib,
   pkgs,
   ...
 }: {
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-  ];
+  imports = [];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "litolaptop"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
@@ -44,12 +39,12 @@
     # yes, hardcoding like this is bad
     # UPD: actually, I'm not sure. The nixos config is one interconnected thing, so the file
     # is more or less guaranteed to exist there
-    symbolsFile = ../symbols/c2wru; 
+    symbolsFile = ./symbols/c2wru; 
   };
   services.xserver.xkb.extraLayouts.km = {
     description = "English (KMonad-complement)";
     languages = ["eng"];
-    symbolsFile = ../symbols/km; # ikik
+    symbolsFile = ./symbols/km; # ikik
   };
 
   services.displayManager.sddm.enable = true;
@@ -61,19 +56,11 @@
 
   services.zfs.autoSnapshot.enable = true;
 
-  services.kmonad = {
-    enable = true;
-    keyboards = {
-      kmonadOutput = {
-        device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
-        config = builtins.readFile ./config.kbd;
-      };
-    };
-  };
-
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
+  #
+  # for whatever reason, this doesn't seem to work, so I set the layout in home.nix instead
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;

@@ -43,6 +43,9 @@
           substituters = ["https://cosmic.cachix.org/"];
           trusted-public-keys = ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
         };
+        nixpkgs.overlays = [
+              inputs.nix-vscode-extensions.overlays.default
+            ];
       };
     in {
       litopc = nixpkgs.lib.nixosSystem {
@@ -52,11 +55,6 @@
           home-manager.nixosModules.home-manager
           homeManagerSettings
           nixSettings
-          {
-            nixpkgs.overlays = [
-              inputs.nix-vscode-extensions.overlays.default
-            ];
-          }
         ];
       };
       litolaptop = nixpkgs.lib.nixosSystem {

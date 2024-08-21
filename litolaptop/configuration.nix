@@ -15,13 +15,13 @@
 
   networking.hostName = "litolaptop"; # Define your hostname.
 
-  # services.kmonad = {
-  #   enable = true;
-  #   keyboards = {
-  #     kmonadOutput = {
-  #       device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
-  #       config = builtins.readFile ./config.kbd;
-  #     };
-  #   };
-  # };
+  services.kmonad = {
+    enable = true;
+    keyboards = {
+      kmonadOutput = {
+        device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
+        config = builtins.readFile ./config.kbd;
+      };
+    };
+  };
 }

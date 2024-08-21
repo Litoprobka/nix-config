@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,6 +16,10 @@
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = {
@@ -25,17 +30,32 @@
     nixos-cosmic,
     ...
   } @ inputs: {
-    nixosConfigurations = {
+    nixosConfigurations = let
+      homeManagerSettings = {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.backupFileExtension = "backup";
+
+        home-manager.users.litoprobka = import ./home.nix;
+      };
+      nixSettings = {
+        nix.settings = {
+          substituters = ["https://cosmic.cachix.org/"];
+          trusted-public-keys = ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
+        };
+      };
+    in {
       litopc = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./litopc/configuration.nix
           home-manager.nixosModules.home-manager
+          homeManagerSettings
+          nixSettings
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users.litoprobka = import ./home.nix;
+            nixpkgs.overlays = [
+              inputs.nix-vscode-extensions.overlays.default
+            ];
           }
         ];
       };
@@ -44,19 +64,9 @@
         modules = [
           ./litolaptop/configuration.nix
           home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users.litoprobka = import ./home.nix;
-          }
+          homeManagerSettings
+          nixSettings
           kmonad.nixosModules.default
-          {
-            nix.settings = {
-              substituters = ["https://cosmic.cachix.org/"];
-              trusted-public-keys = ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
-            };
-          }
           nixos-cosmic.nixosModules.default
         ];
       };

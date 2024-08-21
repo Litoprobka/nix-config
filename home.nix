@@ -105,6 +105,34 @@
     nix-direnv.enable = true;
   };
 
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.open-vsx; [
+      s-nlf-fh.glassit
+      janw4ld.lambda-black
+      adam-bender.commit-message-editor
+      eamodio.gitlens
+    ];
+    userSettings = {
+      "http.proxySupport" = "on";
+      "glassit.alpha" = 200;
+      "editor.fontFamily" = "'Fira Code', 'Droid Sans Mono', 'monospace', monospace"; # I'm not sure why monospace is listed twice
+      "editor.fontSize" = 16;
+      "editor.fontLigatures" = true;
+      "git.autofetch" = true;
+      "git.confirmSync" = false;
+      "gite.enableSmartCommit" = true;
+      "workbench.colorTheme" = "Lambda Dark+";
+      "workbench.activityBar.location" = "hidden";
+      "workbench.statusBar.visible" = false;
+      "window.menuBarVisibility" = "toggle";
+      "window.doubleClickIconToClose" = true;
+      "nix.formatterPath" = "alejandra";
+      "explorer.confirmDragAndDrop" = false;
+      "explorer.confirmDelete" = false;
+    };
+  };
+
   # KDE seems to ignore these?..
   home.keyboard.layout = "km,c2wru";
   home.keyboard.options = ["grp:sclk_toggle"];

@@ -105,6 +105,7 @@
     nix-direnv.enable = true;
   };
 
+  # KDE seems to ignore these?..
   home.keyboard.layout = "km,c2wru";
   home.keyboard.options = ["grp:sclk_toggle"];
 

@@ -120,6 +120,13 @@
     elisa
   ];
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
+
   programs.starship = {
     enable = true;
     settings.add_newline = true;

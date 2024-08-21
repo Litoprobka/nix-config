@@ -115,19 +115,25 @@
     ];
     userSettings = {
       "http.proxySupport" = "on";
-      "glassit.alpha" = 200;
+
       "editor.fontFamily" = "'Fira Code', 'Droid Sans Mono', 'monospace', monospace"; # I'm not sure why monospace is listed twice
       "editor.fontSize" = 16;
       "editor.fontLigatures" = true;
+
       "git.autofetch" = true;
       "git.confirmSync" = false;
-      "gite.enableSmartCommit" = true;
+      "git.enableSmartCommit" = true;
+
+      "glassit.alpha" = 200;
       "workbench.colorTheme" = "Lambda Dark+";
       "workbench.activityBar.location" = "hidden";
       "workbench.statusBar.visible" = false;
+
       "window.menuBarVisibility" = "toggle";
       "window.doubleClickIconToClose" = true;
+
       "nix.formatterPath" = "alejandra";
+
       "explorer.confirmDragAndDrop" = false;
       "explorer.confirmDelete" = false;
     };

@@ -120,9 +120,9 @@
     cmp     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
     grv     1    2    3    4    5    6    7    8    9    0    -    =    @lng home
     tab     q    c    l    w    b    j    f    u    y    scln \    [    ]    pgup
-    @dw     a    s    r    t    g    p    n    e    i    o 	  '    @bsl      pgdn
-    lsft    x    m    d    v    z    k    h    ,    .    /    rsft volu      end
-    lctl    lmet @ext           spc            @alt @sym rctl @psg vold @nsg
+    @dw     a    s    r    t    g    p    n    e    i    o 	  '    ret       pgdn
+    lsft    x    m    d    v    z    k    h    ,    .    /    rsft up        end
+    lctl    lmet @ext           spc            @alt @sym rctl lft  down rght
 )
 
 (deflayer symbols ;; mirroring the Iris layout

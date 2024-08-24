@@ -22,6 +22,9 @@
     gh
     sops
     wireguard-tools
+    clickhouse
+    httm
+    prismlauncher
   ];
 
   programs.starship = {
@@ -124,7 +127,7 @@
       "git.confirmSync" = false;
       "git.enableSmartCommit" = true;
 
-      "glassit.alpha" = 200;
+      "glassit.alpha" = 220;
       "workbench.colorTheme" = "Lambda Dark+";
       "workbench.activityBar.location" = "hidden";
       "workbench.statusBar.visible" = false;
@@ -133,6 +136,7 @@
       "window.doubleClickIconToClose" = true;
 
       "nix.formatterPath" = "alejandra";
+      "nix.enableLanguageServer" = true;
 
       "explorer.confirmDragAndDrop" = false;
       "explorer.confirmDelete" = false;

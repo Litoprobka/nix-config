@@ -144,6 +144,25 @@
     XDG_STATE_HOME = "$HOME/local/state";
     XDG_BIN_HOME = "$HOME/local/apps"; # not supported by the XDG specification yet
     XDG_LIB_HOME = "$HOME/local/lib"; # again, not in XDG specification yet, but I wanna be future-proof
+
+    # brute-forcing XDG compliance
+    # this may or may not be a good idea in NixOS
+    PYTHONSTARTUP = "$XDG_CONFIG_HOME/pythonrc";
+    RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
+    RUSTFLAGS = "-L $RUSTUP_HOME/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib";
+    CARGO_HOME = "$XDG_DATA_HOME/cargo";
+    STARSHIP_CACHE = "$XDG_CACHE_HOME/starship";
+    JULIA_DEPOT_PATH = "$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"; # weird
+    WINEPREFIX = "$XDG_DATA_HOME/wineprefixes/default";
+    _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=\"$XDG_CONFIG_HOME\"/java";
+    GHCUP_USE_XDG_DIRS = "true";
+    STACK_XDG = "1";
+    KDEHOME = "$XDG_CONFIG_HOME/kde";
+    XINITRC = "$XDG_CONFIG_HOME/xinitrc";
+    npm_config_userconfig = "$XDG_CONFIG_HOME/npm/config";
+    npm_config_cache = "$XDG_CACHE_HOME/npm";
+    npm_config_prefix = "$XDG_DATA_HOME/npm";
+    PACK_DIR = "$XDG_DATA_HOME/pack";
   };
 
   # Some programs need SUID wrappers, can be configured further or are

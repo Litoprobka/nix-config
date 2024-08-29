@@ -25,6 +25,9 @@
     clickhouse
     httm
     prismlauncher
+    ghc
+    cabal-install
+    stack
   ];
 
   programs.starship = {
@@ -140,6 +143,9 @@
 
       "explorer.confirmDragAndDrop" = false;
       "explorer.confirmDelete" = false;
+
+      "haskell.sessionLoading" = "multipleComponents";
+      "haskell.formattingProvider" = "fourmolu";
     };
   };
 

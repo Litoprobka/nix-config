@@ -28,6 +28,7 @@
     ghc
     cabal-install
     stack
+    haskell-language-server
   ];
 
   programs.starship = {
@@ -133,7 +134,7 @@
       "glassit.alpha" = 220;
       "workbench.colorTheme" = "Lambda Dark+";
       "workbench.activityBar.location" = "hidden";
-      "workbench.statusBar.visible" = false;
+      "workbench.statusBar.visible" = true;
 
       "window.menuBarVisibility" = "toggle";
       "window.doubleClickIconToClose" = true;

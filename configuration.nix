@@ -111,6 +111,7 @@
     tldr
     obsidian
     gimp
+    nekoray
   ];
   fonts.packages = with pkgs; [
     fira-code

@@ -29,6 +29,10 @@
     cabal-install
     stack
     haskell-language-server
+    vesktop
+    ouch
+    haskellPackages.fourmolu
+    ripgrep
   ];
 
   programs.starship = {
@@ -126,12 +130,13 @@
       "editor.fontFamily" = "'Fira Code', 'Droid Sans Mono', 'monospace', monospace"; # I'm not sure why monospace is listed twice
       "editor.fontSize" = 16;
       "editor.fontLigatures" = true;
+      "editor.semanticHighlighting.enabled" = true;
 
       "git.autofetch" = true;
       "git.confirmSync" = false;
       "git.enableSmartCommit" = true;
 
-      "glassit.alpha" = 220;
+      "glassit.alpha" = 255; # 220
       "workbench.colorTheme" = "Lambda Dark+";
       "workbench.activityBar.location" = "hidden";
       "workbench.statusBar.visible" = true;
@@ -147,6 +152,9 @@
 
       "haskell.sessionLoading" = "multipleComponents";
       "haskell.formattingProvider" = "fourmolu";
+      "haskell.plugin.semanticTokens.globalOn" = true;
+      "haskell.plugin.semanticTokens.config.typeVariableToken" = "parameter";
+
     };
   };
 

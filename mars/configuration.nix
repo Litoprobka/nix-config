@@ -15,12 +15,6 @@
 
   networking.hostName = "mars"; # Define your hostname.
 
-  users.users.marsle = {
-  	isNormalUser = true;
-  	extraGroups = ["wheel" "input" "uinput"];
-  	packages = with pkgs; [gcc tree gnumake];
-  };
-
   # todo: replace with a user module
   # services.kmonad = {
   #   enable = true;

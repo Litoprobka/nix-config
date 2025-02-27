@@ -91,6 +91,11 @@
     extraGroups = ["wheel" "input" "uintput"];
     packages = [];
   };
+  users.users.marsle = {
+  	isNormalUser = true;
+  	extraGroups = ["wheel" "input" "uinput"];
+  	packages = with pkgs; [gcc tree gnumake];
+  };
   users.defaultUserShell = pkgs.zsh;
 
   security.sudo.wheelNeedsPassword = false;

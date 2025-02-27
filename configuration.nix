@@ -139,7 +139,7 @@
   environment.sessionVariables = {
     LC_ALL = "en_US.UTF-8"; # a temporary fix for alacritty
     # XDG dirs
-    XDG_CACHE_HOME = "/var/cache/litoprobka"; # I have a different sub-pool for cache files that is mounted on /var/cache; used to be "$HOME/.local/cache"
+    XDG_CACHE_HOME = "/var/cache/$USER"; # I have a different sub-pool for cache files that is mounted on /var/cache; used to be "$HOME/.local/cache"
     XDG_CONFIG_HOME = "$HOME/.config"; # todo: move it to a non-dot folder, either ~/config or ~/local/config
     XDG_DATA_HOME = "$HOME/local/data";
     XDG_STATE_HOME = "$HOME/local/state";

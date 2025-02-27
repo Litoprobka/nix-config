@@ -36,7 +36,8 @@
         home-manager.useUserPackages = true;
         home-manager.backupFileExtension = "backup";
 
-        home-manager.users.litoprobka = import ./home.nix;
+        home-manager.users.litoprobka = import ./litoprobka-home.nix;
+        home-manager.users.marsle = import ./mars-home.nix;
       };
       nixSettings = {
         nix.settings = {
@@ -66,6 +67,16 @@
           nixSettings
           kmonad.nixosModules.default
           nixos-cosmic.nixosModules.default
+        ];
+      };
+      mars = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./mars/configuration.nix
+          home-manager.nixosModules.home-manager
+          homeManagerSettings
+          nixSettings
+          kmonad.nixosModules.default
         ];
       };
     };

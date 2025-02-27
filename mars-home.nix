@@ -3,36 +3,21 @@
   pkgs,
   ...
 }: {
-  home.username = "litoprobka";
-  home.homeDirectory = "/home/litoprobka";
+  home.username = "marsle";
+  home.homeDirectory = "/home/marsle";
   home.packages = with pkgs; [
     neofetch
     telegram-desktop
     home-manager
     lsd
     vscode
-    nil
-    alejandra
-    direnv
-    nix-direnv
-    cabal2nix
     htop
     cloc
     flameshot
     gh
-    sops
     wireguard-tools
-    clickhouse
     httm
     prismlauncher
-    ghc
-    cabal-install
-    stack
-    haskell-language-server
-    vesktop
-    ouch
-    haskellPackages.fourmolu
-    ripgrep
   ];
 
   programs.starship = {
@@ -130,13 +115,12 @@
       "editor.fontFamily" = "'Fira Code', 'Droid Sans Mono', 'monospace', monospace"; # I'm not sure why monospace is listed twice
       "editor.fontSize" = 16;
       "editor.fontLigatures" = true;
-      "editor.semanticHighlighting.enabled" = true;
 
       "git.autofetch" = true;
       "git.confirmSync" = false;
       "git.enableSmartCommit" = true;
 
-      "glassit.alpha" = 255; # 220
+      "glassit.alpha" = 220;
       "workbench.colorTheme" = "Lambda Dark+";
       "workbench.activityBar.location" = "hidden";
       "workbench.statusBar.visible" = true;
@@ -152,15 +136,11 @@
 
       "haskell.sessionLoading" = "multipleComponents";
       "haskell.formattingProvider" = "fourmolu";
-      "haskell.plugin.semanticTokens.globalOn" = true;
-      "haskell.plugin.semanticTokens.config.typeVariableToken" = "parameter";
 
+      "C_Cpp.default.compilerPath" = "/etc/profiles/per-user/marsle/bin/g++";
+      "files.autoSave" = "onFocusChange";
     };
   };
-
-  # KDE seems to ignore these?..
-  home.keyboard.layout = "km,c2wru";
-  home.keyboard.options = ["grp:sclk_toggle"];
 
   services.syncthing.enable = true;
 

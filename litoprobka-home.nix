@@ -149,6 +149,7 @@
 
       "window.menuBarVisibility" = "toggle";
       "window.doubleClickIconToClose" = true;
+      "window.titleBarStyle" = "native";
 
       "nix.formatterPath" = "alejandra";
       "nix.enableLanguageServer" = true;
@@ -161,6 +162,7 @@
       "haskell.plugin.semanticTokens.globalOn" = true;
       "haskell.plugin.semanticTokens.config.typeVariableToken" = "parameter";
 
+	  "chat.commandCenter.enabled" = false;
     };
   };
 

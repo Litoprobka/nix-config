@@ -17,7 +17,7 @@
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
-  time.timeZone = "Europe/Moscow";
+  # time.timeZone = "Europe/Moscow"; # I'm getting a 'defined as both null and not null' error for whatever reason
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";

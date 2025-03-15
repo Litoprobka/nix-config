@@ -28,6 +28,7 @@
     home-manager,
     kmonad,
     nixos-cosmic,
+    # solaar,
     ...
   } @ inputs: {
     nixosConfigurations = let

@@ -18,6 +18,11 @@
     wireguard-tools
     httm
     prismlauncher
+    ghc
+    cabal-install
+    stack
+    haskell-language-server
+    haskellPackages.fourmolu
   ];
 
   programs.starship = {
@@ -113,7 +118,7 @@
       "http.proxySupport" = "on";
 
       "editor.fontFamily" = "'Fira Code', 'Droid Sans Mono', 'monospace', monospace"; # I'm not sure why monospace is listed twice
-      "editor.fontSize" = 16;
+      "editor.fontSize" = 18;
       "editor.fontLigatures" = true;
 
       "git.autofetch" = true;

@@ -25,15 +25,16 @@
     clickhouse
     httm
     prismlauncher
-    # ghc
+    ghc
     cabal-install
     stack
-    # haskell-language-server
+    haskell-language-server
     vesktop
     ouch
-    # haskellPackages.fourmolu
+    haskellPackages.fourmolu
     ripgrep
     thunderbird
+    zed-editor
   ];
 
   programs.starship = {

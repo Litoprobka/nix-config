@@ -17,7 +17,7 @@
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
-  # time.timeZone = "Europe/Moscow"; # I'm getting a 'defined as both null and not null' error for whatever reason
+  time.timeZone = "Europe/Moscow"; # I'm getting a 'defined as both null and not null' error for whatever reason
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -88,7 +88,7 @@
 
   users.users.litoprobka = {
     isNormalUser = true;
-    extraGroups = ["wheel" "input" "uintput"];
+    extraGroups = ["wheel" "input" "uinput"];
     packages = [];
   };
   users.users.marsle = {
@@ -171,6 +171,7 @@
     PACK_DIR = "$XDG_DATA_HOME/pack";
   };
 
+  virtualisation.docker.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -181,7 +182,7 @@
 
   # List services that you want to enable:
 
-  services.automatic-timezoned.enable = true;
+  # services.automatic-timezoned.enable = true;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

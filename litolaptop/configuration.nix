@@ -24,4 +24,9 @@
       };
     };
   };
+
+  # just three gigs of ARC
+  boot.extraModprobeConfig = ''
+    options zfs zfs_arc_max=3221225472
+  '';
 }

@@ -34,7 +34,6 @@
     haskellPackages.fourmolu
     ripgrep
     thunderbird
-    zed-editor
   ];
 
   programs.starship = {
@@ -167,6 +166,27 @@
 	  "chat.commandCenter.enabled" = false;
 	  # seems like rg loops indefinitely when vscode tries to reindex the project
 	  "search.followSymlinks" = false;
+    };
+  };
+
+  programs.zed-editor = { 
+    enable = true;
+    extensions = ["nix" "haskell"];
+    userSettings = {
+      ui_font_size = 16;
+      buffer_font_size = 16;
+      buffer_font_family = "Fira Code";
+      theme = {
+        mode = "system";
+        light = "One Light";
+        dark = "Gruvbox Dark Hard";
+      };
+      features = {
+        copilot = false;
+      };
+      telemetry = {
+        metrics = false;
+      };
     };
   };
 

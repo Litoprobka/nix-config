@@ -165,6 +165,8 @@
       "haskell.plugin.semanticTokens.config.typeVariableToken" = "parameter";
 
 	  "chat.commandCenter.enabled" = false;
+	  # seems like rg loops indefinitely when vscode tries to reindex the project
+	  "search.followSymlinks" = false;
     };
   };
 

@@ -125,13 +125,13 @@
 
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.open-vsx; [
+    profiles.default.extensions = with pkgs.open-vsx; [
       s-nlf-fh.glassit
       janw4ld.lambda-black
       adam-bender.commit-message-editor
       eamodio.gitlens
     ];
-    userSettings = {
+    profiles.default.userSettings = {
       "http.proxySupport" = "on";
 
       "editor.fontFamily" = "'Fira Code', 'Droid Sans Mono', 'monospace', monospace"; # I'm not sure why monospace is listed twice
@@ -163,9 +163,12 @@
       "haskell.plugin.semanticTokens.globalOn" = true;
       "haskell.plugin.semanticTokens.config.typeVariableToken" = "parameter";
 
-	  "chat.commandCenter.enabled" = false;
-	  # seems like rg loops indefinitely when vscode tries to reindex the project
-	  "search.followSymlinks" = false;
+      "C_Cpp.formatting" = "clangFormat";
+      "C_Cpp.clang_format_fallbackStyle" = "{ BasedOnStyle: Chromium, IndentWidth: 4 }";
+
+	    "chat.commandCenter.enabled" = false;
+	    # seems like rg loops indefinitely when vscode tries to reindex the project
+	    "search.followSymlinks" = false;
     };
   };
 

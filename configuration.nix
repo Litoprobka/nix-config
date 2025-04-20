@@ -107,7 +107,7 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     git
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     micro
     wget
     curl
@@ -117,7 +117,10 @@
     obsidian
     gimp
     nekoray
+    qmk
   ];
+  services.udev.packages = [ pkgs.qmk-udev-rules ];
+  # services.udev.extraRules = "sudo cp /home/litoprobka/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/";
   fonts.packages = with pkgs; [
     fira-code
   ];
@@ -192,6 +195,7 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  networking.firewall.checkReversePath = false; # a lazy way to make wireguard work
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

@@ -108,13 +108,13 @@
 
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.open-vsx; [
+    profiles.default.extensions = with pkgs.open-vsx; [
       s-nlf-fh.glassit
       janw4ld.lambda-black
       adam-bender.commit-message-editor
       eamodio.gitlens
     ];
-    userSettings = {
+    profiles.default.userSettings = {
       "http.proxySupport" = "on";
 
       "editor.fontFamily" = "'Fira Code', 'Droid Sans Mono', 'monospace', monospace"; # I'm not sure why monospace is listed twice

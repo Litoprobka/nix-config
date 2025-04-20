@@ -2,10 +2,10 @@
   description = "System configuration as a flake, I guess?";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     kmonad = {
@@ -18,13 +18,14 @@
     };
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-stable,
     home-manager,
     kmonad,
     nixos-cosmic,
@@ -46,8 +47,14 @@
           trusted-public-keys = ["cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="];
         };
         nixpkgs.overlays = [
-              inputs.nix-vscode-extensions.overlays.default
-            ];
+            inputs.nix-vscode-extensions.overlays.default
+            (final: _prev: {
+                stable = import nixpkgs-stable {
+                    system = final.system;
+                    config.allowUnfree = true;
+              };
+            })
+        ];
       };
     in {
       litopc = nixpkgs.lib.nixosSystem {

@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   ...
@@ -35,6 +36,8 @@
     ripgrep
     thunderbird
   ];
+  nix.registry.pkgs.flake = inputs.nixpkgs;
+  nix.registry.stable.flake = inputs.nixpkgs-stable;
 
   programs.starship = {
     enable = true;

@@ -11,5 +11,6 @@
       ../configuration.nix
     ];
   networking.hostName = "litopc"; # Define your hostname.
+  boot.loader.systemd-boot.consoleMode = "max";
 }
 

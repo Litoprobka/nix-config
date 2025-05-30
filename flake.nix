@@ -39,6 +39,7 @@
         home-manager.backupFileExtension = "backup";
 
         home-manager.users.litoprobka = import ./litoprobka-home.nix;
+        home-manager.extraSpecialArgs = { inputs = inputs; };
         home-manager.users.marsle = import ./mars-home.nix;
       };
       nixSettings = {

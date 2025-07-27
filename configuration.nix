@@ -88,7 +88,7 @@
 
   users.users.litoprobka = {
     isNormalUser = true;
-    extraGroups = ["wheel" "input" "uinput"];
+    extraGroups = ["wheel" "input" "uinput" "docker"];
     packages = [];
   };
   users.users.marsle = {
@@ -118,6 +118,7 @@
     gimp
     nekoray
     qmk
+    cacert
   ];
   services.udev.packages = [ pkgs.qmk-udev-rules ];
   # services.udev.extraRules = "sudo cp /home/litoprobka/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/";
@@ -172,6 +173,10 @@
     npm_config_cache = "$XDG_CACHE_HOME/npm";
     npm_config_prefix = "$XDG_DATA_HOME/npm";
     PACK_DIR = "$XDG_DATA_HOME/pack";
+
+    # a temporary fix for git dependencies in stack
+    NIX_SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+    GIT_SSL_CAINFO = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
   };
 
   virtualisation.docker.enable = true;

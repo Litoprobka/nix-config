@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: {
+  imports = [./services/pipewire.nix];
   home.username = "litoprobka";
   home.homeDirectory = "/home/litoprobka";
   home.packages = with pkgs; [
@@ -35,6 +36,7 @@
     haskellPackages.fourmolu
     ripgrep
     thunderbird
+    rnnoise-plugin
   ];
   nix.registry.pkgs.flake = inputs.nixpkgs;
   nix.registry.stable.flake = inputs.nixpkgs-stable;

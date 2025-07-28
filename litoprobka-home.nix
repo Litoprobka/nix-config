@@ -65,7 +65,7 @@
     syntaxHighlighting.enable = true;
 
     # zsh keybindings
-    initExtra = ''
+    initContent = ''
       bindkey ";5D"   backward-word # Ctrl-left
       bindkey ";5C"	  forward-word # Ctrl-right
       bindkey  "^[[H" beginning-of-line # Home
@@ -156,6 +156,7 @@
       "window.menuBarVisibility" = "toggle";
       "window.doubleClickIconToClose" = true;
       "window.titleBarStyle" = "native";
+      "window.customTitleBarVisibility" = "never";
 
       "nix.formatterPath" = "alejandra";
       "nix.enableLanguageServer" = true;

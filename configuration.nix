@@ -119,6 +119,7 @@
     nekoray
     qmk
     cacert
+    amneziawg-tools
   ];
   services.udev.packages = [ pkgs.qmk-udev-rules ];
   # services.udev.extraRules = "sudo cp /home/litoprobka/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/";
@@ -143,6 +144,7 @@
   };
 
   programs.zsh.enable = true;
+  programs.amnezia-vpn.enable = true;
 
   environment.variables.EDITOR = "micro";
   environment.sessionVariables = {

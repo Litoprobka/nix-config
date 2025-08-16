@@ -37,6 +37,7 @@
     ripgrep
     thunderbird
     rnnoise-plugin
+    godot-mono
   ];
   nix.registry.pkgs.flake = inputs.nixpkgs;
   nix.registry.stable.flake = inputs.nixpkgs-stable;

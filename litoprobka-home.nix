@@ -31,13 +31,14 @@
     cabal-install
     stack
     haskell-language-server
-    vesktop
+    discord
     ouch
     haskellPackages.fourmolu
     ripgrep
     thunderbird
     rnnoise-plugin
     godot-mono
+    lua-language-server
   ];
   nix.registry.pkgs.flake = inputs.nixpkgs;
   nix.registry.stable.flake = inputs.nixpkgs-stable;

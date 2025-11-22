@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11"; # I should probably update the stable input to 25.05
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -11,10 +11,6 @@
     kmonad = {
       url = "github:kmonad/kmonad?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixos-cosmic = {
-      url = "github:lilyinstarlight/nixos-cosmic";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
@@ -28,7 +24,6 @@
     nixpkgs-stable,
     home-manager,
     kmonad,
-    nixos-cosmic,
     # solaar,
     ...
   } @ inputs: {
@@ -75,7 +70,6 @@
           homeManagerSettings
           nixSettings
           kmonad.nixosModules.default
-          nixos-cosmic.nixosModules.default
         ];
       };
       mars = nixpkgs.lib.nixosSystem {

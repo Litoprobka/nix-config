@@ -12,9 +12,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.networkmanager = {
+    enable = true;
+    plugins = [ pkgs.networkmanager-openvpn ];
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Moscow"; # I'm getting a 'defined as both null and not null' error for whatever reason
@@ -73,6 +74,20 @@
     pulse.enable = true;
   };
 
+  services.zapret = {
+    enable = false;
+    params = [
+      "--dpi-desync=fake,multidisorder"
+      "--dpi-desync-ttl=5"
+      "--orig-ttl=1"
+      "--orig-mod-start=s1"
+      "--orig-mod-cutoff=d1"
+      "--dpi-desync-split-pos=1"
+    ];
+  };
+
+  services.logmein-hamachi.enable = true;
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
@@ -120,6 +135,9 @@
     qmk
     cacert
     amneziawg-tools
+    openvpn
+    jdk25
+    ipset
   ];
   services.udev.packages = [ pkgs.qmk-udev-rules ];
   # services.udev.extraRules = "sudo cp /home/litoprobka/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/";
@@ -197,11 +215,9 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  # networking.firewall.allowedTCPPorts = [ 25565 34197 ];
+  # networking.firewall.allowedUDPPorts = [ 25565 34197 ];
+  networking.firewall.enable = true;
   networking.firewall.checkReversePath = false; # a lazy way to make wireguard work
 
   # Copy the NixOS configuration file and link it from the resulting system

@@ -66,7 +66,7 @@
       ls = "lsd";
       ungzip = "gzip -dk";
     };
-    dotDir = ".config/zsh-nix";
+    dotDir = "${config.xdg.configHome}/zsh-nix";
     history = {
       ignoreAllDups = true;
       path = "${config.xdg.cacheHome}/zsh/history";
@@ -75,7 +75,7 @@
 
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
-    import = ["~/.config/alacritty/themes/themes/gruvbox_dark.toml"]; # todo: add the theme to nix config
+    import = ["~${config.xdg.configHome}/alacritty/themes/themes/gruvbox_dark.toml"]; # todo: add the theme to nix config
 
     cursor.style.shape = "Beam";
 

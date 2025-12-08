@@ -54,6 +54,13 @@
 
   programs.zoxide.enable = true;
 
+  xdg = {
+    enable = true;
+    cacheHome = "/var/cache/$USER";
+    dataHome = "${config.home.homeDirectory}/local/data";
+    stateHome = "${config.home.homeDirectory}/local/state";
+  };
+
   programs.zsh = {
     enable = true;
 
@@ -84,7 +91,7 @@
       ls = "lsd";
       ungzip = "gzip -dk";
     };
-    dotDir = ".config/zsh-nix";
+    dotDir = "${config.xdg.configHome}/zsh-nix";
     history = {
       ignoreAllDups = true;
       path = "${config.xdg.cacheHome}/zsh/history";
@@ -93,7 +100,7 @@
 
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
-    general.import = ["~/.config/alacritty/themes/themes/gruvbox_dark.toml"]; # todo: add the theme to nix config
+    general.import = ["${config.xdg.configHome}/alacritty/themes/themes/gruvbox_dark.toml"]; # todo: add the theme to nix config
 
     cursor.style.shape = "Beam";
 

@@ -88,18 +88,7 @@
 
   services.logmein-hamachi.enable = true;
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.alice = {
-  #   isNormalUser = true;
-  #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  #   packages = with pkgs; [
-  #     firefox
-  #     tree
-  #   ];
-  # };
+  services.dbus.implementation = "broker";
 
   users.users.litoprobka = {
     isNormalUser = true;
@@ -115,10 +104,9 @@
 
   security.sudo.wheelNeedsPassword = false;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.settings.trusted-users = ["root" "litoprobka"];
+  nix.settings.use-xdg-base-directories = true;
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     git
@@ -128,7 +116,7 @@
     curl
     alacritty
     firefox
-    tldr
+    tlrc
     obsidian
     gimp
     nekoray
@@ -138,6 +126,7 @@
     openvpn
     jdk25
     ipset
+    nftables
   ];
   services.udev.packages = [ pkgs.qmk-udev-rules ];
   # services.udev.extraRules = "sudo cp /home/litoprobka/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/";
@@ -178,9 +167,11 @@
     # brute-forcing XDG compliance
     # this may or may not be a good idea in NixOS
     PYTHONSTARTUP = "$XDG_CONFIG_HOME/pythonrc";
+    PYTHON_HISTORY = "$XDG_STATE_HOME/python_history";
     RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
     RUSTFLAGS = "-L $RUSTUP_HOME/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib";
     CARGO_HOME = "$XDG_DATA_HOME/cargo";
+    DOCKER_CONFIG="$XDG_CONFIG_HOME/docker";
     STARSHIP_CACHE = "$XDG_CACHE_HOME/starship";
     JULIA_DEPOT_PATH = "$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"; # weird
     WINEPREFIX = "$XDG_DATA_HOME/wineprefixes/default";

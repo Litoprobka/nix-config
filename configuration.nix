@@ -86,7 +86,7 @@
     ];
   };
 
-  services.logmein-hamachi.enable = true;
+  # services.logmein-hamachi.enable = true;
 
   services.dbus.implementation = "broker";
 
@@ -119,7 +119,6 @@
     tlrc
     obsidian
     gimp
-    nekoray
     qmk
     cacert
     amneziawg-tools
@@ -127,6 +126,7 @@
     jdk25
     ipset
     nftables
+    lutris
   ];
   services.udev.packages = [ pkgs.qmk-udev-rules ];
   # services.udev.extraRules = "sudo cp /home/litoprobka/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/";
@@ -145,6 +145,14 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
+  # I don't know what I am doing
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  # wait, why do I have starship settings both in global config and per-user config?
   programs.starship = {
     enable = true;
     settings.add_newline = true;
@@ -152,6 +160,8 @@
 
   programs.zsh.enable = true;
   programs.amnezia-vpn.enable = true;
+
+  programs.throne.enable = true;
 
   environment.variables.EDITOR = "micro";
   environment.sessionVariables = {

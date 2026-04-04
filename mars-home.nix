@@ -109,10 +109,10 @@
   programs.vscode = {
     enable = true;
     profiles.default.extensions = with pkgs.open-vsx; [
-      s-nlf-fh.glassit
-      janw4ld.lambda-black
-      adam-bender.commit-message-editor
-      eamodio.gitlens
+      # s-nlf-fh.glassit
+      # janw4ld.lambda-black
+      # adam-bender.commit-message-editor
+      # eamodio.gitlens
     ];
     profiles.default.userSettings = {
       "http.proxySupport" = "on";

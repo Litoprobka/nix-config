@@ -21,8 +21,8 @@
   time.timeZone = "Europe/Moscow"; # I'm getting a 'defined as both null and not null' error for whatever reason
 
   # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.proxy.default = "socks5://127.0.0.1:2080";
+  networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -85,6 +85,8 @@
       "--dpi-desync-split-pos=1"
     ];
   };
+
+  services.cloudflare-warp.enable = true;
 
   # services.logmein-hamachi.enable = true;
 

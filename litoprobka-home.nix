@@ -39,6 +39,7 @@
     rnnoise-plugin
     godot-mono
     lua-language-server
+    cloudflare-warp
   ];
   nix.registry.pkgs.flake = inputs.nixpkgs;
   nix.registry.stable.flake = inputs.nixpkgs-stable;
@@ -132,8 +133,8 @@
   };
   programs.git = {
     enable = true;
-    userEmail = "52280455+Litoprobka@users.noreply.github.com";
-    userName = "Peter Burtsev";
+    settings.user.email = "52280455+Litoprobka@users.noreply.github.com";
+    settings.user.name = "Peter Burtsev";
   };
   programs.gh.enable = true;
 

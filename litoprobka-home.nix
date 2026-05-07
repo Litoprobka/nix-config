@@ -8,7 +8,6 @@
   home.username = "litoprobka";
   home.homeDirectory = "/home/litoprobka";
   home.packages = with pkgs; [
-    neofetch
     telegram-desktop
     home-manager
     lsd

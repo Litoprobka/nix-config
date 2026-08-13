@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: {
-  imports = [./services/pipewire.nix];
   home.username = "litoprobka";
   home.homeDirectory = "/home/litoprobka";
   home.packages = with pkgs; [

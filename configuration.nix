@@ -177,7 +177,7 @@
     XDG_LIB_HOME = "$HOME/local/lib"; # again, not in XDG specification yet, but I wanna be future-proof
 
     # brute-forcing XDG compliance
-    # this may or may not be a good idea in NixOS
+    # this may or may not be a good idea in NixOSE
     PYTHONSTARTUP = "$XDG_CONFIG_HOME/pythonrc";
     PYTHON_HISTORY = "$XDG_STATE_HOME/python_history";
     RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
@@ -200,6 +200,60 @@
     # a temporary fix for git dependencies in stack
     NIX_SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
     GIT_SSL_CAINFO = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+  };
+
+
+  # I didn't bother with configuring rnnoise-plugin by hand and just stole this config
+  # https://github.com/TLATER/dotfiles/blob/561931560d2c12e81f139ef8c681e6d99fc6c54e/home-config/config/services/pipewire.nix
+  services.pipewire.extraConfig.pipewire."pipewire.conf.d/99-rnnoise.conf" = {
+    text = builtins.toJSON {
+      "context.properties" = {
+        "link.max-buffers" = 16;
+        "core.daemon" = true;
+        "core.name" = "pipewire-0";
+        "module.x11.bell" = false;
+        "module.access" = true;
+        "module.jackdbus-detect" = false;
+      };
+
+      "context.modules" = [
+        {
+          name = "libpipewire-module-filter-chain";
+          args = {
+            "node.description" = "Noise Canceling source";
+            "media.name" = "Noise Canceling source";
+
+            "filter.graph" = {
+              nodes = [
+                {
+                  type = "ladspa";
+                  name = "rnnoise";
+                  plugin = "${pkgs.rnnoise-plugin}/lib/ladspa/librnnoise_ladspa.so";
+                  label = "noise_suppressor_mono";
+                  control = {
+                    "VAD Threshold (%)" = 80.0;
+                    "VAD Grace Period (ms)" = 200;
+                    "Retroactive VAD Grace (ms)" = 0;
+                  };
+                }
+              ];
+            };
+
+            "capture.props" = {
+              "node.name" = "capture.rnnoise_source";
+              "node.passive" = true;
+              "audio.rate" = 48000;
+            };
+
+            "playback.props" = {
+              "node.name" = "rnnoise_source";
+              "media.class" = "Audio/Source";
+              "audio.rate" = 48000;
+            };
+          };
+        }
+      ];
+    };
   };
 
   virtualisation.docker.enable = true;

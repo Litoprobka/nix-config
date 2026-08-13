@@ -129,6 +129,7 @@
     ipset
     nftables
     lutris
+    stable.throne
   ];
   services.udev.packages = [ pkgs.qmk-udev-rules ];
   # services.udev.extraRules = "sudo cp /home/litoprobka/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/";
@@ -163,7 +164,12 @@
   programs.zsh.enable = true;
   programs.amnezia-vpn.enable = true;
 
-  programs.throne.enable = true;
+  # the package override doesn't work
+  # programs.throne = {
+  #   enable = true;
+  #   tunMode.enable = true;
+  #   package = pkgs.stable.throne;
+  # };
 
   environment.variables.EDITOR = "micro";
   environment.sessionVariables = {

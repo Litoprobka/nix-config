@@ -12,5 +12,7 @@
     ];
   networking.hostName = "litopc"; # Define your hostname.
   boot.loader.systemd-boot.consoleMode = "max";
+  powerManagement.enable = true;
+  powerManagement.cpuFreqGovernor = "performance";
 }
 
